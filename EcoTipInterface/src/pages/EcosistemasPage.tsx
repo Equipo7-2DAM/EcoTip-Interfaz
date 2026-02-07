@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
+import NotFoundPage from "./NotFoundPage";
+import Loading from "../components/Loading";
 
 interface Ecosistema {
     id: number;
@@ -11,17 +13,28 @@ interface Ecosistema {
 export default function EcosistemasPage() {
     const [ecosistemas, setEcosistemas] = useState<Ecosistema[]>([]);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:8080/ecosistemas')
             .then(response => response.json())
             .then((data: Ecosistema[]) => setEcosistemas(data))
+            .then(() => setLoading(false))
+            .then(() => setError(""))
             .catch((err) => {
                 setError("Failed to fetch games");
                 console.error(err);
             });
     }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        return <NotFoundPage />;
+    }
 
     return (
         <div>

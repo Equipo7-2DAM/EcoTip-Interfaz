@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router";
+import Loading from "../components/Loading";
+import NotFoundPage from "./NotFoundPage";
 
 interface Ecosistema {
     id:number,
     nombre:string,
-    description:string,
-    temperatura_media:number,
+    descripcion:string,
+    temperaturaMedia:number,
     isActive: boolean,
     createdAt: string,
 }
@@ -36,6 +38,14 @@ export default function EcosistemaDetailPage() {
                 setLoading(false);
             });
     }, [ecosistemaId]);
+    
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        return <NotFoundPage />;
+    }
 
     if (ecosistema) {
         return (
@@ -47,10 +57,10 @@ export default function EcosistemaDetailPage() {
             }}>
                 <div>
                     <h1>{ecosistema.nombre}</h1>
-                    <p><strong>Descripción:</strong> {ecosistema.description}</p>
-                    <p><strong>Temperatura media:</strong> {ecosistema.temperatura_media}°C</p>
-                    <p><strong>Estado:</strong> {ecosistema.isActive ? "Activo" : "Inactivo"}</p>
-                    <p><strong>Creado en:</strong> {ecosistema.createdAt}</p>
+                    <p><strong>Descripción: </strong>{ecosistema.descripcion}</p>
+                    <p><strong>Temperatura media: </strong>{ecosistema.temperaturaMedia}°C</p>
+                    <p><strong>Estado: </strong> {ecosistema.isActive ? "Activo" : "Inactivo"}</p>
+                    <p><strong>Creado en: </strong> {ecosistema.createdAt}</p>
                 </div>
             </div>
         );
