@@ -3,8 +3,11 @@ import { Route, Router, BrowserRouter, Routes, NavLink } from 'react-router'
 import Navigation from './components/Navigation'
 import Home  from './pages/Home'
 import EcosistemasPage from './pages/EcosistemasPage'
-import './App.css'
+import AnimalesPage from './pages/AnimalesPage'
+import EcosistemaDetailPage  from './pages/EcosistemaDetailPage'
+import AnimalDetailPage from './pages/AnimalDetailPage'
 import Header from './components/Header'
+import './App.css'
 
 function App() {
   
@@ -17,8 +20,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/ecosistemas' element={<EcosistemasPage/>} />
-        <Route path='/animales' element={<h1>Animales</h1>} />
         <Route path='/usuarios' element={<h1>Usuarios</h1>} />
+        <Route path='/animales' element={<AnimalesPage/>} />
+        <Route path='/animales/:id' element={<AnimalDetailPage />} />
+        <Route path='/ecosistemas/:id' element={<EcosistemaDetailPage />} 
+        />
       </Routes>
     
     </BrowserRouter>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router";
 
 interface Ecosistema {
     id: number;
@@ -10,7 +11,7 @@ interface Ecosistema {
 export default function EcosistemasPage() {
     const [ecosistemas, setEcosistemas] = useState<Ecosistema[]>([]);
     const [error, setError] = useState("");
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:8080/ecosistemas')
@@ -52,11 +53,20 @@ export default function EcosistemasPage() {
                 <div style={{ textAlign: 'center' }}>
                 <p>{ecosistema.nombre}</p>
                 <p style={{fontFamily: 'Arial, sans-serif italic'}}>{ecosistema.descripcion}</p>
+                <NavLink
+                to={`/ecosistemas/${ecosistema.id}`}
+                style={({ isActive }) => ({
+                    color: isActive ? "#fded09ff" : "lightgray",
+                    textDecoration: "none"
+                })}
+                className="btn"
+                >
+                    Ver detalles
+                </NavLink>
                 </div>
             </li>
             ))}
             </ul>
         </div>
-
     )
 }
